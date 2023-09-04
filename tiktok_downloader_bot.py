@@ -14,10 +14,12 @@ async def start(message: types.Message):
 
 @dp.message_handler()
 async def download_send_video(message: types.Message):
-   
+       
     get_id_video = message.text.split('?')
     
     current_id = get_id_video[0].split('/')[5]
+    
+    video_api = requests.get(f'https://api16-normal-c-useast1a.tiktokv.com/aweme/v1/feed/?aweme_id={current_id}').json()
 
     id_video = video_api.get("aweme_list")[0].get('statistics').get('aweme_id')
     comment_video = video_api.get("aweme_list")[0].get('statistics').get('comment_count')
